@@ -1,0 +1,299 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  color: #ffffff;
+  font-family: 'Sora', system-ui, sans-serif;
+  position: relative;
+  box-shadow: 0px 3px 10px white;
+  background: url("/ФОН2.d6f65f7f.jpg") center center / cover no-repeat fixed;
+}
+
+.h11 {
+    color: rgb(255, 255, 255);
+}
+
+.headers {
+    background-color: rgb(70, 3, 124);;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    min-height: 100px;
+    width: auto;
+}
+
+a:visited {
+    color: #ffffff;
+}
+
+a{
+    text-decoration: none;
+}
+
+/*.footer-color {
+    color: gray;
+    background: rgb(126, 54, 185);
+    /*rgb(44, 42, 42);
+}*/
+
+.app {
+  display: flex;
+  height: 100vh;
+}
+
+/* Боковое меню */
+.sidebar {
+  width: 270px;
+  background: rgb(5, 0, 56);
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  justify-content: flex-start;
+  position: fixed;
+  top: 0;
+  height: 100vh;
+}
+
+.sidebar ul {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.bottom {
+    margin-top: auto;
+}
+
+.sidebar-btn {
+    padding: 15px;
+    font-size: 25px;
+    transition: transform 0.5s ease;
+    list-style: none;
+    cursor: pointer;
+}
+
+.sidebar-btn:hover {
+    /*transform: scale(1.05);*/
+    background-color: #3d3153;
+    border-radius: 10px;
+}
+
+.sidebar-btn.active {
+    /*transform: scale(1.05);*/
+    background-color: #48396d;
+    border-radius: 10px;
+}
+
+.sidebar-btn.active .arrow {
+    transform: rotate(0deg) !important; /* Поворачиваем вниз */
+    color: #ffffff;
+}
+
+.sidebar-btn .dropdown-toggle {
+    display: flex;
+    align-items: center; /* Центрирует по вертикали */
+    justify-content: space-between; /* Текст слева, стрелка справа */
+    width: 100%;
+}
+
+/* Фикс для стрелки, чтобы она не "падала" ниже текста */
+.sidebar-btn .arrow {
+    display: inline-block;
+    transition: transform 0.3s ease-in-out; /* Плавный поворот */
+    transform: rotate(-90deg); /* Смотрит вправо */
+    margin-left: 10px;
+}
+
+.saidbar-menu { 
+    background: rgba(2, 0, 36, 1); 
+    margin-top: 60px;     /* ← опускает Menu */
+    margin-bottom: 30px;  /* ← отступ от кнопок */
+    align-self: flex-start; /* чтобы не прижимался вправо */
+
+
+}
+.sidebar-btn a {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: rgb(156, 151, 151);
+    text-decoration: none;
+    width: 100%;
+    /* height: 100%; */
+}
+
+.sidebar-btn a:hover {
+    color: white;
+}
+
+.sidebar-btn.active a {
+    color: white;
+}
+.sidebar-btn1 a {
+    text-decoration: none;
+    width: 100%;
+    height: 100%;
+}
+
+.content {
+  padding: 20px;
+  flex: 1; /*занимает всю оставшуюся ширину*/
+  margin-left: 240px;
+}
+
+.sidebar-btn.has-dropdown {
+    position: relative;
+}
+
+/*.sidebar-btn.has-dropdown .dropdown-toggle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding-right: 10px;
+}*/
+
+.sidebar-btn.has-dropdown .arrow {
+    font-size: 12px;
+    transition: transform 0.3s ease;
+    margin-left: 10px;
+    color: #9c9797;
+}
+
+.sidebar-btn.has-dropdown.active .arrow {
+    transform: rotate(180deg);
+    color: rgb(255, 255, 255);
+}
+.dropdown-menu {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, opacity 0.3s ease;
+    opacity: 0;
+    background-color: #2a2342;
+    border-radius: 0 0 10px 10px;
+    margin: 0 -15px;
+    padding-left: 15px;
+    list-style: none;
+    position: relative;
+    z-index: 10;
+}
+
+.dropdown-menu::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 25px;
+    right: 0;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.dropdown-menu.active {
+    max-height: 300px;
+    opacity: 1;
+    margin-top: 10px;
+}
+
+.dropdown-menu li {
+    padding: 12px 15px;
+    font-size: 20px;
+    transition: background-color 0.3s ease;
+    position: relative;
+}
+
+.dropdown-menu li:last-child {
+    border-radius: 0 0 6px 6px;
+}
+
+.dropdown-menu li:hover {
+    background-color: #3a3153;
+    padding-left: 35px;
+}
+
+.dropdown-menu li a {
+    color: rgb(156, 151, 151);
+    display: block;
+    width: 100%;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.dropdown-menu li:hover a {
+    color: white;
+}
+
+/* Индикатор активного подпункта */
+.dropdown-menu li.active a {
+    color: #fff;
+    font-weight: 500;
+}
+
+.dropdown-menu li.active::before {
+    content: '›';
+    position: absolute;
+    left: 15px;
+    color: #fff;
+}
+
+/* Начальное состояние стрелки — смотрит вправо */
+.sidebar-btn .arrow {
+    display: inline-block;
+    transition: transform 0.3s ease;
+    transform: rotate(-90deg); /* Поворот вправо */
+    margin-left: 10px;
+}
+
+/* Состояние при открытом меню — смотрит вниз */
+.sidebar-btn.active .arrow,
+.sidebar-btn.has-dropdown.active .arrow {
+    transform: rotate(0deg) !important; /* Поворот вниз */
+    color: #ffffff;
+}
+
+/* Убираем лишние отступы, если они мешают */
+.dropdown-menu {
+    transition: max-height 0.3s ease, opacity 0.3s ease;
+}
+
+.arrow {
+    display: inline-block; /* Обязательно для работы трансформации */
+    transition: transform 0.3s ease; /* Плавность вращения */
+    transform: rotate(-90deg); /* Смотрит вправо по умолчанию */
+    pointer-events: none; /* Чтобы клик по стрелке проходил сквозь неё на кнопку */
+}
+
+.icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0; /* чтобы иконка не сжималась */
+  margin-right: 10px;
+}
+
+.sidebar-btn.has-dropdown .dropdown-toggle {
+  display: flex;
+  align-items: center;         /* выравниваем по вертикали */
+  justify-content: space-between; /* текст слева, стрелка справа */
+  width: 100%;                 /* кнопка занимает всю ширину */
+  box-sizing: border-box;      /* учитываем padding */
+  padding: 10px 15px;          /* внутренние отступы */
+}
+
+.sidebar-btn.has-dropdown .dropdown-toggle .arrow {
+  margin-left: 10px;
+  font-size: 14px;
+  flex-shrink: 0; /* чтобы стрелка не сжималась */
+}
+
+/*.sidebar-btn.has-dropdown .dropdown-toggle img.icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  margin-right: 10px;
+}*/
+
+
+/*# sourceMappingURL=/style.e308ff8e.css.map */
