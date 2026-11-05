@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Страница игры | Ampligame</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+
+    <style>
+      /* --- БАЗОВЫЕ СТИЛИ --- */
+      body {
+        background-color: #0f0f11;
+        color: #ffffff;
+        font-family: "Sora", sans-serif;
+        margin: 0;
+        padding: 40px 20px;
+        display: flex;
+        justify-content: center;
+        scrollbar-gutter: stable;
+      }
+
+      .game-page-wrapper {
+        width: 100%;
+        max-width: 1000px;
+      }
+
+      /* Кнопка назад */
+      .back-link {
+        display: inline-block;
+        background-color: #8b5cf6;
+        color: #ffffff;
+        font-size: 14px;
+        font-weight: 700;
+        padding: 10px 20px;
+        border-radius: 8px;
+        text-decoration: none;
+        margin-bottom: 25px;
+        transition: background-color 0.2s;
+      }
+      .back-link:hover {
+        background-color: #7c3aed;
+      }
+
+      /* Карточка */
+      .game-card-layout {
+        display: flex;
+        gap: 40px;
+        background: #1c1c1e;
+        border-radius: 20px;
+        padding: 30px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        width: 100%;
+        box-sizing: border-box;
+        overflow: hidden;
+      }
+
+      .game-cover {
+        flex-shrink: 0;
+        width: 320px;
+      }
+      .game-cover img {
+        width: 100%;
+        border-radius: 12px;
+        object-fit: cover;
+        display: block;
+      }
+
+      .game-details {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+      }
+
+      .game-title {
+        font-size: 32px;
+        font-weight: 700;
+        margin: 0 0 20px 0;
+        line-height: 1.2;
+      }
+
+      /* Теги */
+      .game-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 20px;
+      }
+      .tag {
+        background: #2a2a2d;
+        padding: 8px 16px;
+        border-radius: 8px;
+        font-size: 13px;
+        color: #b3b3b3;
+        display: flex;
+        align-items: center;
+      }
+      .tag-label {
+        color: #888;
+        margin-right: 5px;
+      }
+
+      /* Описание */
+      .desc-container {
+        position: relative;
+        margin-bottom: 10px;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+      }
+
+      .game-description {
+        font-size: 15px;
+        line-height: 1.6;
+        color: #d1d1d1;
+        margin: 0;
+        overflow: hidden;
+        transition: max-height 0.4s ease-in-out;
+        max-height: 110px; /* Обрезка */
+      }
+
+      .game-description.expanded {
+        max-height: 2000px;
+      }
+
+      .desc-container::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 40px;
+        background: linear-gradient(to bottom, transparent, #1c1c1e);
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+      }
+      .desc-container.expanded::after {
+        opacity: 0;
+      }
+
+      /* Кнопка "Показать полностью" */
+      .read-more-btn {
+        background: transparent;
+        border: 1px solid #a855f7;
+        color: #a855f7;
+        padding: 8px 16px;
+        border-radius: 8px;
+        font-size: 13px;
+        cursor: pointer;
+        align-self: flex-start;
+        margin-bottom: 20px;
+        display: none;
+        transition: all 0.2s;
+      }
+      .read-more-btn:hover {
+        background: #a855f7;
+        color: white;
+      }
+
+      /* Блок покупки */
+      .buy-section {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        background: #111;
+        padding: 15px 20px;
+        border-radius: 12px;
+        margin-top: auto;
+        width: 100%;
+        box-sizing: border-box;
+      }
+
+      .game-price {
+        font-size: 24px;
+        font-weight: 700;
+        color: #c084fc;
+      }
+
+      .buy-btn {
+        background: #8b5cf6;
+        color: white;
+        border: none;
+        padding: 12px 32px;
+        border-radius: 10px;
+        font-weight: 600;
+        font-size: 15px;
+        cursor: pointer;
+        transition: background 0.2s;
+      }
+      .buy-btn:hover {
+        background: #7c3aed;
+      }
+
+      /* Модальное окно */
+      .balance-modal {
+        position: fixed !important;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.8) !important;
+        display: none;
+        justify-content: center !important;
+        align-items: center !important;
+        z-index: 9999;
+      }
+      .balance-modal.active {
+        display: flex !important;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="game-page-wrapper">
+      <a href="index.html" class="back-link">Назад в магазин</a>
+
+      <div class="game-card-layout">
+        <div class="game-cover">
+          <img id="game-image" src="" alt="Обложка игры" />
+        </div>
+
+        <div class="game-details">
+          <h1 class="game-title" id="game-title">Загрузка...</h1>
+
+          <div class="game-tags">
+            <span class="tag"
+              ><span class="tag-label">Разработчик:</span>
+              <span id="game-developer"></span
+            ></span>
+            <span class="tag"
+              ><span class="tag-label">Год:</span> <span id="game-year"></span
+            ></span>
+            <span class="tag"
+              ><span class="tag-label">Жанр:</span> <span id="game-genre"></span
+            ></span>
+            <span class="tag"
+              ><span class="tag-label">Платформа:</span>
+              <span id="game-platform"></span
+            ></span>
+          </div>
+
+          <div class="desc-container" id="desc-container">
+            <p class="game-description" id="game-description"></p>
+          </div>
+
+          <button class="read-more-btn" id="toggle-desc-btn">
+            ▼ Показать полностью
+          </button>
+
+          <div class="buy-section">
+            <span class="game-price" id="game-price"></span>
+            <button class="buy-btn" id="buy-btn">КУПИТЬ</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Модальное окно -->
+    <div class="balance-modal" id="balanceModal">
+      <div class="balance-modal-content">
+        <div class="balance-modal-header">
+          <h3>Пополнение баланса</h3>
+          <button class="balance-close-btn">×</button>
+        </div>
+        <div class="balance-modal-body">
+          <div class="balance-presets">
+            <button class="balance-preset" data-amount="100">100 ₽</button>
+            <button class="balance-preset" data-amount="500">500 ₽</button>
+            <button class="balance-preset" data-amount="1000">1000 ₽</button>
+            <button class="balance-preset" data-amount="2500">2500 ₽</button>
+            <button class="balance-preset" data-amount="5000">5000 ₽</button>
+            <button class="balance-preset" data-amount="10000">10000 ₽</button>
+          </div>
+          <div class="balance-custom">
+            <input
+              type="number"
+              class="balance-custom-input"
+              id="customAmount"
+              placeholder="Своя сумма"
+              min="1"
+            />
+            <button class="balance-custom-add">Добавить</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="game.js"></script>
+  </body>
+</html>

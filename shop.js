@@ -3,16 +3,16 @@ document.addEventListener("DOMContentLoaded", () => {
   const btnStore = document.getElementById("btn-store");
   const cloudPage = document.querySelector(".cloud-page");
 
-  // Функция для скрытия всего
+  // 1. Функция для скрытия всего
   function hideAll() {
     if (storeContent) storeContent.style.display = "none";
     if (cloudPage) cloudPage.style.display = "none";
-    
+
     const profilePage = document.querySelector(".profile-page");
     if (profilePage) profilePage.style.display = "none";
   }
 
-  // Показываем store
+  // 2. Показываем store
   if (btnStore) {
     btnStore.addEventListener("click", (e) => {
       e.preventDefault();
@@ -22,4 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
+
+  // ВСЁ! Никакого кода для Strapi здесь больше быть не должно.
+  // Он находится в файле strapi-games.js
 });
